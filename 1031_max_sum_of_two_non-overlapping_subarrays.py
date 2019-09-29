@@ -159,7 +159,26 @@ class Solution(object):
             for i in range(1, N - L - M + 2):
                 arrayMax = max(max(arrayL[:i]) + max(arrayM[i + L-1:]), max(arrayM[:i]) + max(arrayL[i + M-1:]), arrayMax)
         return arrayMax
-
+    def maxSumTwoNoOverlap7(self, A, L, M):
+        """
+        :type A: List[int]
+        :type L: int
+        :type M: int
+        :rtype: int
+        尽量减少重复性劳动
+        step1. 在元素组的基础上逐个累加
+        step2. 依次找到L个数组前最大的M个数组，或者M个数组前的最大L个数，并返回两种情况比较后的最大值
+        *****************牛逼**********************
+        """
+        N = len(A)
+        for i in range(1, N):
+            A[i] += A[i - 1]
+        res, max_L, max_M = A[L+M-1], A[L - 1], A[M - 1]
+        for i in range(L + M, N):
+            max_L = max(max_L, A[i - M] - A[i - L - M])
+            max_M = max(max_M, A[i - L] - A[i - L - M])
+            res = max(res, max_L + A[i] - A[i - M], max_M + A[i] - A[i - L])
+        return res
 
 if __name__ == "__main__":
     A = [4,5,14,16,16,20,7,13,8,15]
@@ -175,5 +194,5 @@ if __name__ == "__main__":
     # L = 1
     # M = 2
     s = Solution()
-    result = s.maxSumTwoNoOverlap6(A, L, M)
+    result = s.maxSumTwoNoOverlap7(A, L, M)
     print(result)
