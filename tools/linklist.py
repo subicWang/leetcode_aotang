@@ -4,32 +4,64 @@ Aouther: Subic
 Time: 2019/9/20: 21:47
 """
 
-class ListNode(object):
-    def __init__(self, x):
+class Node(object):
+    def __init__(self, x, next=None):
         self.val = x
-        self.next = None
+        self.next = next
 
 
-class LinkList:
-    def __init__(self, node):
-        self.head = node
+class LinkedList(object):
+    def __init__(self, head=None):
+        self.head = head
 
-    def add(self, data):
-        node = ListNode(data)
-        self.head = node
-        return node
+    def insertToFront(self, data):
+        if data is None:
+            return None
+        new_node = Node(data, self.head)
+        self.head = new_node
+        return new_node
 
+    def append(self, data):
+        if data is None:
+            return None
+        node = Node(data)
+        if self.head is None:
+            self.head = node
+            return node
+        cur_node = self.head
+        while cur_node.next is not None:
+            cur_node = cur_node.next
+        cur_node.next = node
+        return self.head
 
-    # def _reverse(self, nodelist):
-    #     list = []
-    #     while nodelist:
-    #         list.append(nodelist.val)
-    #         nodelist = nodelist.next
-    #     result = Node(list[0])
-    #     linkhandle = LinkList()
-    #     for i in list[1:]:
-    #         result = linkhandle.add(i)
-    #     return result
+    def find(self, data):
+        if data is None:
+            return None
+        cur_node = self.head
+        while cur_node.next:
+            if cur_node.val == data:
+                return cur_node
+            cur_node = cur_node.next
+        return None
+
+    def delete(self, data):
+        if data is None:
+            return None
+        if self.head is None:
+            return None
+        if self.head.val == data:
+            self.head = self.head.next
+            return self.head
+        pre_node = self.head
+        cur_node = self.head.next
+        while cur_node:
+            if cur_node.val == data:
+                pre_node.next = cur_node.next
+                return self.head
+            else:
+                pre_node = cur_node
+                cur_node = cur_node.next
+        return self.head
 
     def printLinkList(self, node):
         while node:
