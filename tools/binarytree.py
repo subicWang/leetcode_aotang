@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 class Node(object):
     def __init__(self, value, left=None, right=None):
-        self.value = value
+        self.val = value
         self.left = left
         self.right = right
 
@@ -29,7 +29,7 @@ class BinaryTree(object):
         for i in args:
             seed = self.root
             while True:
-                if i > seed.value:
+                if i > seed.val:
                     if not seed.right:
                         node = Node(i)
                         seed.right = node
@@ -61,7 +61,7 @@ class BinaryTree(object):
     def first_order(self, root):
         if not root:
             return None
-        self.seq.append(root.value)
+        self.seq.append(root.val)
         self.first_order(root.left)
         self.first_order(root.right)
 
@@ -69,7 +69,7 @@ class BinaryTree(object):
         if not root:
             return None
         self.mid_order(root.left)
-        self.seq.append(root.value)
+        self.seq.append(root.val)
         self.mid_order(root.right)
 
     def last_order(self, root):
@@ -77,7 +77,7 @@ class BinaryTree(object):
             return None
         self.last_order(root.left)
         self.last_order(root.right)
-        self.seq.append(root.value)
+        self.seq.append(root.val)
 
     def create_level_tree(self, *args):
         args = list(args)
@@ -103,12 +103,12 @@ class BinaryTree(object):
 def create_graph(G, node, pos, x=0, y=0, layer=1):
     pos[node.value] = (x, y)
     if node.left:
-        G.add_edge(node.value, node.left.value)
+        G.add_edge(node.val, node.left.val)
         l_x, l_y = x - 1/2 ** layer, y-1
         l_layer = layer + 1
         create_graph(G, node.left, pos, l_x, l_y, layer=l_layer)
     if node.right:
-        G.add_edge(node.value, node.right.value)
+        G.add_edge(node.val, node.right.val)
         r_x, r_y = x + 1/2 ** layer, y-1
         r_layer = layer + 1
         create_graph(G, node.right, pos, r_x, r_y, layer=r_layer)
@@ -127,6 +127,6 @@ if __name__ == "__main__":
     s = [10, 20, 30, 40, 50]
     tree = BinaryTree()
     tree.create_level_tree(*s)
-    # draw(tree.root)
-    tree.first_order(tree.root)
-    print(tree.seq)
+    draw(tree.root)
+    # tree.first_order(tree.root)
+    # print(tree.seq)
