@@ -18,7 +18,7 @@ class Solution(object):
         :type root: TreeNode
         :type to_delete: List[int]
         :rtype: List[TreeNode]
-        遇到二叉树的问题，先想到递归。判断条件当前点如果在to_delete里，则返回none。父节点在to_delete里，且当前节点不在则将
+        这是二叉树的问题，应先想到递归。判断条件：当前点如果在to_delete里，则返回none。如果父节点在to_delete里且当前节点不在则将
         当前节点增加到返回列表里。
         Runtime: 40 ms, faster than 98.67% of Python online submissions for Delete Nodes And Return Forest.
         Memory Usage: 12.2 MB, less than 100.00% of Python online submissions for Delete Nodes And Return Forest.
